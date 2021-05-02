@@ -1,6 +1,6 @@
 {
     "name": "crizprz/laravelmercadopago",
-    "description": "this package will turn your website into a pwa",
+    "description": "This package integrates Mercado Pago's Checkout Pro easily",
     "type": "library",
     "license": "MIT",
     "keywords": [
