@@ -1,0 +1,34 @@
+{
+    "name": "crizprz/laravelmercadopago",
+    "description": "this package will turn your website into a pwa",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "MercadoPago",
+        "php",
+        "Web Checkout"
+    ],
+    "authors": [{
+        "name": "Cristian Lira Perez",
+        "email": "al221711754@gmail.com"
+    }],
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "^7.0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "crizprz\\laravelmercadopago\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "crizprz\\laravelmercadopago\\Providers\\LaravelMercadoPagoProvider"
+            ],
+            "aliases": {
+                "mercadopago": "crizprz\\laravelmercadopago\\Facades\\MercadoPago"
+            }
+        }
+    }
+}
