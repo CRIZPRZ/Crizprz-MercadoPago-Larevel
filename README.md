@@ -170,4 +170,51 @@ For Example
 ## Test your integration 
 1. read the [Test your integration](https://www.mercadopago.com.mx/developers/es/guides/online-payments/checkout-pro/test-integration#bookmark_prueba_el_flujo_de_pago) documentation to get the test cards it provides
 
- 
+## Payment status responses 
+
+### payment success 
+
+The code that is executed when returning to your website from a successful payment is in the `App\Http\Controllers\MercadoPagoController` controller in the success method 
+```php 
+  public function success(Request $request)
+   {
+    // dd($request->all());
+    if ($request->status === 'approved') {
+        $response = Http::get("https://api.mercadopago.com/v1/payments/{$request->payment_id}", [
+            'access_token' => env('ACCESS_TOKEN_MP'),
+            ])->json();
+
+        dd($response);
+    }
+   }
+```
+the payment returns a get request to your server so we will use the Request $request where all the payment data comes, what we are interested in is the payiment_id
+
+sample answer 
+```php 
+ array:11 [▼
+  "collection_id" => "14694550173"
+  "collection_status" => "approved"
+  "payment_id" => "14694550173"
+  "status" => "approved"
+  "external_reference" => "null"
+  "payment_type" => "credit_card"
+  "merchant_order_id" => "2621979593"
+  "preference_id" => "752892812-d318bf82-4eea-4748-af60-cd4ade381491"
+  "site_id" => "MLM"
+  "processing_mode" => "aggregator"
+  "merchant_account_id" => "null"
+]
+```
+
+We are going to do a get request with guzzle / huzzlehttp to find the payment that was made and thus obtain the details, such as amount, type of currency, buyer data etc ... 
+```php 
+ if ($request->status === 'approved') {
+        $response = Http::get("https://api.mercadopago.com/v1/payments/{$request->payment_id}", [
+            'access_token' => env('ACCESS_TOKEN_MP'),
+            ])->json();
+
+        dd($response);
+    }
+```
+In the $ response variable we have all the data of the payment made successfully, with this information we can send emails, push notifications, show session messages in laravel, etc.
