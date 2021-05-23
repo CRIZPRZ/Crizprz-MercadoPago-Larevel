@@ -92,11 +92,15 @@ class MercadoPago{
         } catch (\Throwable $th) {
             // dd($th);
             $mensajeError = $th->getMessage();
+            // dd($mensajeError);
             if ($mensajeError === 'Undefined index: id') {
                 dd("Set your Access_token in the .env file 'ACCESS_TOKEN_MP ='");
             }
             elseif($mensajeError === 'Undefined index: items'){
                 dd("You must send at least one item to the payment preference");
+            }
+            elseif($mensajeError === 'Invalid argument supplied for foreach()'){
+                dd("The back_urls are required in the payment preference");
             }
         }
 
