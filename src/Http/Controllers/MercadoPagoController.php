@@ -12,22 +12,33 @@ class MercadoPagoController extends Controller
     {
         $preference = MercadoPago::CreatePreference([
             'auto_return' => 'approved',
-            'binary_mode' => true,
+
             'back_urls' => [
                 "success" => route('mpsuccess'),
                 "failure" => route('mpfailure'),
                 "pending" => route('mppending')
             ],
             'notification_url' => route('webhook'),
+            'external_reference' => 'Reference_1234',
             'items' => [
-                'id' => '001',
-                'title' => 'prod 1',
-                'picture_url' => 'https://www.tusitio.com/images/products/prod1.jpg',
-                'description' => 'this is descriptions',
-                'category_id' => 'food',
-                'quantity' => 1,
-                'price' => 1000,
+                array(
+                    'id' => '001',
+                    'title' => 'producto 1',
+                    'picture_url' => 'https://www.tusitio.com/images/products/prod1.jpg',
+                    'description' => 'descripcion producto 1',
+                    'quantity' => 2,
+                    'price' => 100,
+                ),
+                array(
+                    'id' => '002',
+                    'title' => 'producto 2',
+                    'picture_url' => 'https://www.tusitio.com/images/products/prod1.jpg',
+                    'description' => 'descripcion producto 2',
+                    'quantity' => 1,
+                    'price' => 1000,
+                ),
             ],
+
             'payment_methods' => [
                 'excluded_payment_methods' => array(
                     array('id' => 'master'),
@@ -56,7 +67,7 @@ class MercadoPagoController extends Controller
                         'cost' => 100,
                 ],
                 'statement_descriptor' => 'Mi tienda online',
-
+                'binary_mode' => true,
         ]);
 
         // If you want to create test users, uncomment the following line
@@ -74,6 +85,7 @@ class MercadoPagoController extends Controller
             ])->json();
 
         dd($response);
+
     }
    }
 
