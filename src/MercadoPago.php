@@ -90,9 +90,9 @@ class MercadoPago{
             // dd($preference);
             // return $preference->id;
         } catch (\Throwable $th) {
-            // dd($th);
+
             $mensajeError = $th->getMessage();
-            // dd($mensajeError);
+
             if ($mensajeError === 'Undefined index: id') {
                 dd("Set your Access_token in the .env file 'ACCESS_TOKEN_MP ='");
             }
